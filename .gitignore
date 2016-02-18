@@ -1,5 +1,9 @@
 *.class
 
+#Excluding .idea folder and files
+.idea/
+selenium-basics.iml
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
