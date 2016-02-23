@@ -5,7 +5,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.FindBy;
 import utils.GetProperties;
+
+import javax.swing.text.html.CSS;
+import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -51,6 +55,25 @@ public class FirstTest {
 
 		driver.findElement(By.cssSelector("#wp-submit")).click();
 		assertTrue("Panel administracyjny nie został wyświetlony", driver.findElement(By.cssSelector("#wpbody-content")).isDisplayed());
+	}
+
+	@Test
+	public void leaveACommentTest(){
+		String comment = "Drugi test naszego komentarza";
+		driver.navigate().to(BASE_URL + "/informacje");
+
+		driver.findElement(By.cssSelector("#comment")).sendKeys(comment);
+
+		driver.findElement(By.cssSelector("#email")).sendKeys("piotr.lesiecki@test.test");
+
+		driver.findElement(By.cssSelector("#author")).sendKeys("Piotr Lesiecki");
+
+		driver.findElement(By.name("submit")).click();
+
+		List<WebElement> commentsList = driver.findElements(By.cssSelector(".comment-list .comment-body .comment-content"));
+
+		assertEquals("Incorrect comment", comment, commentsList.get(commentsList.size() - 1).getText());
+
 	}
 
 	@AfterClass
