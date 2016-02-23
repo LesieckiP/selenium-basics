@@ -11,8 +11,8 @@ public class GetProperties {
 
 	public static String getProperty(String property){
 		String prop;
-		InputStream is = ClassLoader.getSystemResourceAsStream("config.properties");
 		try{
+			InputStream is = ClassLoader.getSystemResourceAsStream("config.properties");
 			p.load(is);
 			prop = p.getProperty(property);
 			is.close();
