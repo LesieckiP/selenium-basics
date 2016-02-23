@@ -14,7 +14,7 @@ public class FirstTest {
 
 
 	final private String BASE_URL = "https://podstawyselenium.wordpress.com/";
-	final private String PAGE_TITLE = "Maven, Selenium, Java";
+	final private String PAGE_TITLE = "Maven, Selenium, Java | Power of test automation";
 
 
 	private String user = GetProperties.getProperty("user");
