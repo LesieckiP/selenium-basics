@@ -1,14 +1,12 @@
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import junit.framework.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.FindBy;
+import pages.WriteCommentPageObject;
 import utils.GetProperties;
 
-import javax.swing.text.html.CSS;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
@@ -27,61 +25,27 @@ public class FirstTest {
 
 	static WebDriver driver;
 
-	@BeforeClass
+	private static WriteCommentPageObject writeCommentPageObject;
+
+	@Before
 		public static void initialize(){
-
-		driver = new FirefoxDriver();
-		driver.manage().window().maximize();
-
-	}
-
-	@Test
-	public void getPageAndCheckTitle(){
-		driver.get(BASE_URL);
-
-		assertEquals("Invalid page title", PAGE_TITLE, driver.getTitle());
-
-	}
-
-	@Test
-	public void loginAsAdminTest(){
-		driver.navigate().to(BASE_URL + "/wp-admin");
-
-		WebElement loginInputField = driver.findElement(By.cssSelector("#user_login"));
-		loginInputField.sendKeys(user);
-
-		WebElement passwordInputField = driver.findElement(By.cssSelector("#user_pass"));
-		passwordInputField.sendKeys(pwd);
-
-		driver.findElement(By.cssSelector("#wp-submit")).click();
-		assertTrue("Panel administracyjny nie został wyświetlony", driver.findElement(By.cssSelector("#wpbody-content")).isDisplayed());
+		driver = Driver.get();
+		WriteCommentPageObject writeCommentPageObject = new WriteCommentPageObject(driver);
+		writeCommentPageObject.get();
 	}
 
 	@Test
 	public void leaveACommentTest(){
 		String comment = "Drugi test naszego komentarza";
-		driver.navigate().to(BASE_URL + "/informacje");
 
-		driver.findElement(By.cssSelector("#comment")).sendKeys(comment);
+		writeCommentPageObject.inputComment(comment);
 
-		driver.findElement(By.cssSelector("#email")).sendKeys("piotr.lesiecki@test.test");
+		writeCommentPageObject.inputEmail("lesieckip@test.test");
 
-		driver.findElement(By.cssSelector("#author")).sendKeys("Piotr Lesiecki");
+		writeCommentPageObject.inputSignature("Papryqarze to my");
 
-		driver.findElement(By.name("submit")).click();
+		writeCommentPageObject.clickSubmitButton();
 
-		List<WebElement> commentsList = driver.findElements(By.cssSelector(".comment-list .comment-body .comment-content"));
-
-		assertEquals("Incorrect comment", comment, commentsList.get(commentsList.size() - 1).getText());
-
+		assertEquals("Last comment is wrong!", comment, writeCommentPageObject.getLastComment());
 	}
-
-	@AfterClass
-	public static void quitDriver(){
-		driver.quit();
-	}
-
-
-
-
 }
