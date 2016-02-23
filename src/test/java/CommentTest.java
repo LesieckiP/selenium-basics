@@ -12,16 +12,9 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class FirstTest {
+public class CommentTest {
 
-
-	final private String BASE_URL = "https://podstawyselenium.wordpress.com/";
-	final private String PAGE_TITLE = "Maven, Selenium, Java | Power of test automation";
-
-
-	private String user = GetProperties.getProperty("user");
-	private String pwd = GetProperties.getProperty("pass");
-
+	private String comment = "Test naszego komentarza";
 
 	static WebDriver driver;
 
@@ -36,8 +29,6 @@ public class FirstTest {
 
 	@Test
 	public void leaveACommentTest(){
-		String comment = "Drugi test naszego komentarza";
-
 		writeCommentPageObject.inputComment(comment);
 
 		writeCommentPageObject.inputEmail("lesieckip@test.test");
