@@ -1,29 +1,27 @@
-import junit.framework.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.WriteCommentPageObject;
-import utils.GetProperties;
 
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class CommentTest {
 
 	private String comment = "Test naszego komentarza";
 
-	static WebDriver driver;
+	private WebDriver driver;
 
-	private static WriteCommentPageObject writeCommentPageObject;
+	private WriteCommentPageObject writeCommentPageObject;
 
 	@Before
-		public static void initialize(){
+		public void initialize(){
 		driver = Driver.get();
-		WriteCommentPageObject writeCommentPageObject = new WriteCommentPageObject(driver);
+		writeCommentPageObject = new WriteCommentPageObject(driver);
 		writeCommentPageObject.get();
 	}
 
@@ -31,11 +29,13 @@ public class CommentTest {
 	public void leaveACommentTest(){
 		writeCommentPageObject.inputComment(comment);
 
-		writeCommentPageObject.inputEmail("lesieckip@test.test");
+		writeCommentPageObject.inputEmail("piotrlesiecki@email.pl");
 
-		writeCommentPageObject.inputSignature("Papryqarze to my");
+		writeCommentPageObject.inputSignature("To my papryQArze! ;)");
 
 		writeCommentPageObject.clickSubmitButton();
+
+		writeCommentPageObject.waitForRequestsFinish();
 
 		assertEquals("Last comment is wrong!", comment, writeCommentPageObject.getLastComment());
 	}

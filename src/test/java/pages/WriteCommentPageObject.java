@@ -1,61 +1,63 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.GetProperties;
 
 import java.util.List;
 
 public class WriteCommentPageObject {
 
-	private WebDriver driver;
-	private String BASE_URL = GetProperties.getProperty("BASE_URL");
-	private String URL_SUFFIX = "/informacje";
-	private String PAGE_TITLE = "Maven, Selenium, Java | Power of test automation";
-
-
-	@FindBy(how = How.CSS, using = "#comment")
-	WebElement commentInputField;
-
-	@FindBy(how = How.CSS, using = "#email")
-	WebElement emailInputField;
-
-	@FindBy(how = How.CSS, using = "#author")
-	WebElement signatureInputField;
-
-	@FindBy(how = How.NAME, using = "submit")
-	WebElement submitButton;
-
-	@FindBy(how = How.CSS, using = ".comment-list .comment-body .comment-content")
-	List<WebElement> commentsList;
-
 	public WriteCommentPageObject(WebDriver aDriver) {
 		driver = aDriver;
 	}
+
+	private WebDriver driver;
+
+	private String BASE_URL = GetProperties.getProperty("BASE_URL");
+	private String URL_SUFFIX = "/informacje";
+
+	By commentInput = By.cssSelector("#comment");
+
+	By emailInput = By.cssSelector("#email");
+
+	By signatureInput = By.cssSelector("#author");
+
+	By submitButton = By.cssSelector("#comment-submit");
+
+	By commentsList = By.cssSelector("#comments .comment-content p");
 
 	public void get() {
 		driver.get(BASE_URL + URL_SUFFIX);
 	}
 
 	public void inputComment(String comment){
-		commentInputField.sendKeys(comment);
+		driver.findElement(commentInput).sendKeys(comment);
 	}
 
 	public void inputEmail(String email){
-		commentInputField.sendKeys(email);
+		driver.findElement(emailInput).sendKeys(email);
 	}
 
 	public void inputSignature(String signature){
-		commentInputField.sendKeys(signature);
+		driver.findElement(signatureInput).sendKeys(signature);
 	}
 
 	public void clickSubmitButton(){
-		submitButton.click();
+		driver.findElement(submitButton).click();
 	}
 
 	public String getLastComment(){
-		return commentsList.get(commentsList.size() - 1).getText();
+		List<WebElement> comments = driver.findElements(commentsList);
+		return comments.get(comments.size() - 1).getText();
+	}
+
+	public void waitForRequestsFinish() {
+
 	}
 }
