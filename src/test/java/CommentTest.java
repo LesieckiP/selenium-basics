@@ -27,7 +27,7 @@ public class CommentTest {
 
 		writeCommentPageObject.inputEmail("piotrlesiecki@email.pl");
 
-		writeCommentPageObject.inputSignature("To my papryQArze! ;)");
+		writeCommentPageObject.inputSignature("Super profi stronka ziomuś");
 
 		writeCommentPageObject.clickSubmitButton();
 
