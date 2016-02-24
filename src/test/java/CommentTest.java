@@ -1,16 +1,10 @@
-import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import pages.WriteCommentPageObject;
-import utils.GetProperties;
 
-import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class CommentTest {
 
