@@ -1,12 +1,8 @@
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.WriteCommentPageObject;
 
-import java.util.concurrent.TimeUnit;
 
 import static junit.framework.TestCase.assertEquals;
 
